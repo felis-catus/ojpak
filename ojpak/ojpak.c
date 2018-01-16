@@ -186,6 +186,8 @@ bool WriteSndFileToWav( OJSndFile_t *pSndFile, const char *filename )
 		return false;
 
 	WaveHeader_t header = UTIL_MakeWaveHeader( pSndFile->samplerate, 1, 16 );
+	header.chunkSize = 4 + 8 + 16 + 8 + pSndFile->size;
+	header.subChunk2Size = pSndFile->size;
 
 	// Write header & data
 	fwrite( &( header ), sizeof( WaveHeader_t ), 1, file );
