@@ -123,7 +123,7 @@ void UTIL_StripExtension( const char *in, char *out, int outSize )
 // UTIL funcs end
 //=============================================================================//
 
-OJSndFile_t *GetSndFile( FILE *file, size_t unWhere )
+OJSndFile_t *CreateSndFile( FILE *file, size_t unWhere )
 {
 	OJSndFile_t *pSndFile = malloc( sizeof( OJSndFile_t ) );
 	pSndFile->fileofs = (int)unWhere;
@@ -170,6 +170,14 @@ OJSndFile_t *GetSndFile( FILE *file, size_t unWhere )
 	return pSndFile;
 }
 
+void DestroySndFile( OJSndFile_t *pSndFile )
+{
+	free( pSndFile->data );
+	free( pSndFile->filename );
+
+	free( pSndFile );
+}
+
 bool WriteSndFileToWav( OJSndFile_t *pSndFile, const char *filename )
 {
 	FILE *file = fopen( filename, "wb" );
@@ -214,7 +222,7 @@ bool ExtractSndPak( const char *filename, const char *destination )
 			break;
 
 		ppSndFiles = realloc( ppSndFiles, ( ( sndBlock + 1 ) * sizeof( OJSndFile_t* ) ) );
-		ppSndFiles[sndBlock] = GetSndFile( file, pos );
+		ppSndFiles[sndBlock] = CreateSndFile( file, pos );
 
 		sndBlock++;
 	}
@@ -233,7 +241,11 @@ bool ExtractSndPak( const char *filename, const char *destination )
 			printf( "...done!\n" );
 		else
 			printf( "...FAILED!\n" );
+
+		DestroySndFile( ppSndFiles[i] );
 	}
+
+	free( ppSndFiles );
 
 	fclose( file );
 	return true;
