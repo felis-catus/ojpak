@@ -3,10 +3,13 @@
 
 typedef struct OJSndFile_t
 {
-	int fileofs;
 	int size;
-	const char *filename;
-	int samplerate;
+	char *filename;
+	int unknown1;
+	int desiredSampleRate;
+	int defaultSampleRate;
+	int unknown2;
+	int unknown3;
 	char *data;
 } OJSndFile_t;
 

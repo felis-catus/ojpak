@@ -145,6 +145,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="waveheader.h" />
+    <ClInclude Include="winlite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ojpak.c" />

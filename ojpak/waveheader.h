@@ -1,5 +1,5 @@
-#ifndef WAVFILE_H
-#define WAVFILE_H
+#ifndef WAVEHEADER_H
+#define WAVEHEADER_H
 
 //
 // shout-out to http://blog.acipo.com/generating-wave-files-in-c/
